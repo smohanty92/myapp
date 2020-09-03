@@ -13,21 +13,13 @@ Template.parents.onCreated(function parentsOnCreated() {
 });
 
 Template.parents.helpers({
-  parent() {
+  getParent() {
+    console.log(Template.currentData());
     const currentParentName = Template.instance().currentParentName.get();
-    
+
     const parent = Parents.findOne({name: currentParentName});
     return parent;
   },
-
-  attributes() {
-    return {
-      type: 'text',
-      id: 'childName',
-      value: this.name
-    };
-  }
-
 });
 
 Template.parents.events({
@@ -43,11 +35,12 @@ Template.parents.events({
 
 function saveParent() {
   const children = [
-    $('#childName').val()
-  ]; 
+    {name: $('#childName').val()}
+  ];
 
+  console.log(children);
   currentParentName = Template.instance().currentParentName.get();
-  
+
   Meteor.call('updateParent', currentParentName, children);
   console.log('updated parent');
 }

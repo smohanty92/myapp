@@ -2,34 +2,36 @@
   {{> parents}}
 </body>
 
+<template name="parent">
+  {{#each children}}
+  Child Name:
+  <input type="text" id="childName" value="{{name}}">
+  {{/each}}
+</template>
+
 <template name="parents">
   <a href="#" data-toggle="modal" data-target="#rotateParents">Rotate Parents Modal</a>
   <div class="modal fade" id="rotateParents">
     <div class="modal-dialog modal-full-height modal-lg">
       <div class="modal-content">
-          <div class="modal-header">
-                <h4 class="modal-title">Rotate Parents</h4>
-                <br>     {{parent.name}}
-            </div>
+        {{#with getParent}}
+        <div class="modal-header">
+          <h4 class="modal-title">Rotate Parents</h4>
+          <br>     {{name}}
+        </div>
 
-            <div class="modal-body">
-              {{#with parent}} 
-                {{#each children}}
-                    Child Name: <input {{attributes}}>
-                {{/each}}
-              {{/with}}
-            </div>
+        <div class="modal-body">
+        {{> parent }}
+        </div>
 
-            <div class="modal-footer">
-              <button id="prev">Prev</button>
-              <button id="next">Next</button>
-            </div>
-
-        </div> 
+        <div class="modal-footer">
+          <button id="prev">Prev</button>
+          <button id="next">Next</button>
+        </div>
+        {{/with}}
+      </div>
 
     </div>
 
-</div>
+  </div>
 </template>
-
-
